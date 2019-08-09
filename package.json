@@ -4,6 +4,7 @@
   "description": "Demonstration",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node ./src/main",
     "init": "npm install --force"
   },
   "repository": {
