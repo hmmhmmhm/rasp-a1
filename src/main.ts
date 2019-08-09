@@ -18,9 +18,8 @@ Raspi.init(async () => {
     Logger.debug(``)
     await LogicBase()
 
-    Logger.debug(`User Code has been ended...`)
-
     Logger.debug(``)
+    Logger.debug(`User Code has been ended...`)
 })
 
 const LogicBase = () => {
@@ -33,7 +32,7 @@ const LogicBase = () => {
 
 const LogicSignalling = () => {
     return new Promise((resolve)=>{
-        const output = new GPIO.DigitalOutput(16)
+        const output = new GPIO.DigitalOutput('P1-16')
 
         let loopCount = 1
         let intervalHandle = setInterval(()=>{
