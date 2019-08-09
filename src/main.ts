@@ -16,12 +16,24 @@ Raspi.init(async () => {
     Logger.debug(`User Code has been start...`)
     await LogicBase()
     Logger.debug(`User Code has been ended...`)
+
+    Logger.debug(``)
+    Logger.debug(`Trying Process Shutdown...`)
+    process.exit()
 })
 
 const LogicBase = () => {
-    const output = new GPIO.DigitalOutput(16)
 
+    return new Promise(async (resolve)=>{
+        await LogicSignalling()
+        resolve()
+    })
+}
+
+const LogicSignalling = () => {
     return new Promise((resolve)=>{
+        const output = new GPIO.DigitalOutput(16)
+
         let loopCount = 1
         let intervalHandle = setInterval(()=>{
             if(loopCount %2 == 1){
@@ -31,7 +43,7 @@ const LogicBase = () => {
                 output.write(GPIO.LOW)
                 Logger.debug(`[SIGNAL] LOW (IDX: ${loopCount})`)
             }
-            if(++loopCount == 20){
+            if(++loopCount > 20){
                 clearInterval(intervalHandle)
                 resolve()
             }
