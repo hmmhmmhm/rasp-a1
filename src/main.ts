@@ -25,7 +25,8 @@ Raspi.init(async () => {
 const LogicBase = () => {
 
     return new Promise(async (resolve)=>{
-        await LogicScanning()
+        // await LogicScanning()
+        await LogicSignalling()
         resolve()
     })
 }
@@ -56,7 +57,7 @@ const LogicScanning = () => {
 
 const LogicSignalling = () => {
     return new Promise((resolve)=>{
-        const output = new GPIO.DigitalOutput(16)
+        const output = new GPIO.DigitalOutput(27)
 
         let loopCount = 1
         let intervalHandle = setInterval(()=>{
