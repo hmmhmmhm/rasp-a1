@@ -14,12 +14,14 @@ Raspi.init(async () => {
 
     Logger.debug(``)
     Logger.debug(`User Code has been start...`)
+
+    Logger.debug(``)
     await LogicBase()
+
     Logger.debug(`User Code has been ended...`)
 
     Logger.debug(``)
     Logger.debug(`Trying Process Shutdown...`)
-    process.exit()
 })
 
 const LogicBase = () => {
@@ -50,3 +52,14 @@ const LogicSignalling = () => {
         }, 1000)
     })
 }
+
+const shutdown = () => {
+    setTimeout(() => {
+        process.exit(0)
+    }, 3000)
+}
+
+process.on('SIGHUP', shutdown)
+process.on('SIGINT', shutdown)
+process.on('SIGTERM', shutdown)
+process.on('SIGCONT', shutdown)
