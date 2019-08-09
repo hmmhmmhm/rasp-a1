@@ -26,7 +26,8 @@ const LogicBase = () => {
 
     return new Promise(async (resolve)=>{
         // await LogicScanning()
-        await LogicSignalling()
+        // await LogicLEDOnOff()
+        await LogicSensorDetect()
         resolve()
     })
 }
@@ -55,9 +56,24 @@ const LogicScanning = () => {
     })
 }
 
-const LogicSignalling = () => {
+const LogicSensorDetect = () => {
     return new Promise((resolve)=>{
-        const output = new GPIO.DigitalOutput('GPIO16') //27
+        const input = new GPIO.DigitalInput('GPIO25')
+        const output = new GPIO.DigitalOutput('GPIO16')
+
+        let intervalHandle = setInterval(()=>{
+            console.log(input.read())
+            if(input.read() == 1){
+                output.write(GPIO.HIGH)
+            }else{
+                output.write(GPIO.LOW)
+            }
+        }, 250)
+    })
+}
+const LogicLEDOnOff = () => {
+    return new Promise((resolve)=>{
+        const output = new GPIO.DigitalOutput('GPIO16')
 
         let loopCount = 1
         let intervalHandle = setInterval(()=>{
