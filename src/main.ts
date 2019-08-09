@@ -1,6 +1,7 @@
 import * as Raspi from 'raspi'
 import * as GPIO from 'raspi-gpio'
 import FolderLogger from 'folder-logger'
+import { PWM } from 'raspi-pwm'
 
 const Logger = new FolderLogger(`./logs`)
 
@@ -27,7 +28,8 @@ const LogicBase = () => {
     return new Promise(async (resolve)=>{
         // await LogicScanning()
         // await LogicLEDOnOff()
-        await LogicSensorDetect()
+        // await LogicSensorDetect()
+        await LogicPWMWork()
         resolve()
     })
 }
@@ -71,6 +73,23 @@ const LogicSensorDetect = () => {
         }, 250)
     })
 }
+
+const LogicPWMWork = () => {
+    return new Promise((resolve)=>{
+        const output = new GPIO.DigitalOutput('GPIO16')
+
+        let powerOf = 100
+        const led = new PWM('GPIO16')
+        let intervalHandle = setInterval(()=>{
+            console.log(powerOf)
+            led.write(powerOf*0.01)
+            if(--powerOf < 0){
+                clearInterval(intervalHandle)
+            }
+        }, 10)
+    })
+}
+
 const LogicLEDOnOff = () => {
     return new Promise((resolve)=>{
         const output = new GPIO.DigitalOutput('GPIO16')

@@ -24,6 +24,7 @@
     "eslint": "^6.1.0",
     "folder-logger": "^1.0.4",
     "raspi": "^6.0.1",
+    "raspi-pwm": "^6.0.0",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
   },
