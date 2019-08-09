@@ -25,14 +25,33 @@ Raspi.init(async () => {
 const LogicBase = () => {
 
     return new Promise(async (resolve)=>{
-        await LogicSignalling()
+        await LogicScanning()
         resolve()
+    })
+}
+const LogicScanning = () => {
+    return new Promise((resolve)=>{
+
+        let loopCount = 1
+        let intervalHandle = setInterval(()=>{
+            const output = new GPIO.DigitalOutput(25-loopCount)
+            output.write(GPIO.HIGH)
+            setTimeout(()=>{
+                output.write(GPIO.LOW)
+            }, 3000)
+            Logger.debug(`SCANNING: PIN:${25-loopCount}`)
+            
+            if(++loopCount > 25){
+                clearInterval(intervalHandle)
+                resolve()
+            }
+        }, 1000)
     })
 }
 
 const LogicSignalling = () => {
     return new Promise((resolve)=>{
-        const output = new GPIO.DigitalOutput(36)
+        const output = new GPIO.DigitalOutput(16)
 
         let loopCount = 1
         let intervalHandle = setInterval(()=>{
