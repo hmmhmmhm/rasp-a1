@@ -76,10 +76,8 @@ const LogicSensorDetect = () => {
 
 const LogicPWMWork = () => {
     return new Promise((resolve)=>{
-        const output = new GPIO.DigitalOutput('GPIO16')
-
         let powerOf = 100
-        const led = new PWM('GPIO16')
+        const led = new PWM(27)
         let intervalHandle = setInterval(()=>{
             console.log(powerOf)
             led.write(powerOf*0.01)
