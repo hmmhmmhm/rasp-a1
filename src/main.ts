@@ -13,22 +13,28 @@ Raspi.init(async () => {
     Logger.debug(`Controller Intailized.`)
 
     Logger.debug(``)
-    Logger.debug(`User Code has been started...`)
+    Logger.debug(`User Code has been start...`)
     await LogicBase()
+    Logger.debug(`User Code has been ended...`)
 })
 
-const LogicBase = async () => {
+const LogicBase = () => {
     const output = new GPIO.DigitalOutput(16)
 
-    let loopCount = 1
-    let intervalHandle = setInterval(()=>{
-        if(loopCount %2 == 1){
-            output.write(GPIO.LOW)
-            Logger.debug(`[SIGNAL] LOW (IDX: ${loopCount})`)
-        }else{
-            output.write(GPIO.HIGH)
-            Logger.debug(`[SIGNAL] HIGH (IDX: ${loopCount})`)
-        }
-        if(++loopCount == 20) clearInterval(intervalHandle)
-    }, 1000)
+    return new Promise((resolve)=>{
+        let loopCount = 1
+        let intervalHandle = setInterval(()=>{
+            if(loopCount %2 == 1){
+                output.write(GPIO.HIGH)
+                Logger.debug(`[SIGNAL] HIGH (IDX: ${loopCount})`)
+            }else{
+                output.write(GPIO.LOW)
+                Logger.debug(`[SIGNAL] LOW (IDX: ${loopCount})`)
+            }
+            if(++loopCount == 20){
+                clearInterval(intervalHandle)
+                resolve()
+            }
+        }, 1000)
+    })
 }
