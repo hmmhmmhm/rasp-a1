@@ -32,7 +32,7 @@ const LogicBase = () => {
 
 const LogicSignalling = () => {
     return new Promise((resolve)=>{
-        const output = new GPIO.DigitalOutput('P1-16')
+        const output = new GPIO.DigitalOutput(36)
 
         let loopCount = 1
         let intervalHandle = setInterval(()=>{
