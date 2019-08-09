@@ -57,7 +57,7 @@ const LogicScanning = () => {
 
 const LogicSignalling = () => {
     return new Promise((resolve)=>{
-        const output = new GPIO.DigitalOutput(27)
+        const output = new GPIO.DigitalOutput('GPIO16') //27
 
         let loopCount = 1
         let intervalHandle = setInterval(()=>{
