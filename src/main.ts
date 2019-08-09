@@ -48,7 +48,7 @@ const LogicScanning = () => {
                 }
             }catch(e){
                 Logger.debug(`NO PIN EXIST: ${40-loopCount}`)
-                loopCount--
+                loopCount++
             }
         }, 1000)
     })
