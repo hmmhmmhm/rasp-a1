@@ -34,16 +34,20 @@ const LogicScanning = () => {
 
         let loopCount = 1
         let intervalHandle = setInterval(()=>{
-            const output = new GPIO.DigitalOutput(25-loopCount)
-            output.write(GPIO.HIGH)
-            setTimeout(()=>{
-                output.write(GPIO.LOW)
-            }, 3000)
-            Logger.debug(`SCANNING: PIN:${25-loopCount}`)
-            
-            if(++loopCount > 25){
-                clearInterval(intervalHandle)
-                resolve()
+            try{
+                const output = new GPIO.DigitalOutput(40-loopCount)
+                output.write(GPIO.HIGH)
+                setTimeout(()=>{
+                    output.write(GPIO.LOW)
+                }, 3000)
+                Logger.debug(`SCANNING: PIN:${40-loopCount}`)
+                
+                if(++loopCount > 40){
+                    clearInterval(intervalHandle)
+                    resolve()
+                }
+            }catch(e){
+                Logger.debug(`NO PIN EXIST: ${40-loopCount}`)
             }
         }, 1000)
     })
